@@ -1,3 +1,9 @@
 UATPAXPEGASUS\Stepdefs.class
-UATPAXPEGASUS\hooks.class
+commons\abstractPages.class
+pagesObject\LoginPO.class
+interfaces\LoginPageUI.class
+interfaces\abstrackPagesUI.class
+interfaces\HomePageUI.class
+pagesObject\HomePO.class
 UATPAXPEGASUS\RunCucumberTest.class
+_env\hooks.class
