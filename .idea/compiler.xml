@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="UATPAXPEGASUS" />
+        <module name="Automation-Android-App" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Automation-Android-App" target="1.8" />
       <module name="UATPAXPEGASUS" target="1.8" />
     </bytecodeTargetLevel>
   </component>

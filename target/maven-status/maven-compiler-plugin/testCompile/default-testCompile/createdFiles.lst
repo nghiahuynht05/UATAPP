@@ -1,8 +1,8 @@
+interfaces\AbstractPagesUI.class
 UATPAXPEGASUS\Stepdefs.class
-commons\abstractPages.class
 pagesObject\LoginPO.class
 interfaces\LoginPageUI.class
-interfaces\abstrackPagesUI.class
+commons\AbstractPages.class
 interfaces\HomePageUI.class
 pagesObject\HomePO.class
 UATPAXPEGASUS\RunCucumberTest.class

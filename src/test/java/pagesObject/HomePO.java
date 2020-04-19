@@ -10,9 +10,9 @@ import java.util.Locale;
 /**
  * Created by nghia.huynht on 4/17/2020.
  */
-public class HomePO extends abstractPages {
+public class HomePO extends AbstractPages {
 
-    private abstractPages abstractPage;
+    private AbstractPages abstractPage;
     String currentCarName;
 
     public HomePO(AndroidDriver driver) {

@@ -1,9 +1,9 @@
 package commons;
 
-import interfaces.abstrackPagesUI;
+import _env.hooks;
+import interfaces.AbstractPagesUI;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.io.FileUtils;
@@ -18,31 +18,31 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.Duration;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by nghia.huynht on 4/17/2020.
  */
-public class abstractPages {
+public class AbstractPages {
     AndroidDriver driver;
     Actions actions;
-    WebDriverWait waitExplicit;
     WebElement element;
-    AndroidElement androidElement;
     List<WebElement> elements;
-    By by;
+    AbstractPagesUI abstractUI;
     public long longTimeout = 30;
     public long shortTimeout = 3;
     public static String appPackageId, appName;
     public String appPackage = "mycar";
-    abstrackPagesUI abstractUI;
 
-    public abstractPages(AndroidDriver driver) {
+    public AbstractPages(AndroidDriver driver) {
         this.driver = driver;
-        abstractUI = new abstrackPagesUI();
+        abstractUI = new AbstractPagesUI();
     }
 
     public void sleepInSecond(long numberInSecond) {
@@ -54,14 +54,22 @@ public class abstractPages {
     }
 
     public void sendAppPackage() {
-        if (appPackage.equals("pegasus")) {
-            appPackageId = "com.qupworld.pegasuspax:id/";
-            appName = "Pegasus";
-        } else if (appPackage.equals("mycar")) {
-            appPackageId = "com.mycar.passenger:id/";
-            appName = "MyCar";
-        }
+        InputStream inputStream;
+        try {
+            Properties prop = new Properties();
+            String propFileName = "config.properties";
 
+            inputStream = hooks.class.getClassLoader().getResourceAsStream(propFileName);
+            if (inputStream != null) {
+                prop.load(inputStream);
+            } else {
+                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+            }
+            appPackageId = prop.getProperty("appPackageId");
+            appName = prop.getProperty("appName");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void sendKeyToElementById(String locator, String textValue) {
@@ -97,6 +105,7 @@ public class abstractPages {
 
     public void longPressToElementById(String locator) {
         locator = String.format(locator, appPackageId);
+        element = driver.findElement(By.id(locator));
         element = driver.findElement(By.id(locator));
         actions = new Actions(driver);
         actions.clickAndHold(element);
@@ -239,7 +248,7 @@ public class abstractPages {
     }
 
     public void clickToDynamicButton(String textOfButton) {
-        clickToElementByXpath(abstrackPagesUI.DYNAIMIC_BUTTON, textOfButton);
+        clickToElementByXpath(AbstractPagesUI.DYNAMIC_BUTTON, textOfButton);
     }
 
     public void takeScreenshot(String fileName) {

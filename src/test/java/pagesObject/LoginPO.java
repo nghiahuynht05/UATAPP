@@ -1,14 +1,16 @@
 package pagesObject;
 
 import com.gargoylesoftware.htmlunit.AbstractPage;
-import commons.abstractPages;
+import commons.AbstractPages;
 import interfaces.LoginPageUI;
 import io.appium.java_client.android.AndroidDriver;
+
+import java.util.List;
 
 /**
  * Created by nghia.huynht on 4/17/2020.
  */
-public class LoginPO extends abstractPages {
+public class LoginPO extends AbstractPages {
 
     private AbstractPage abstractPage;
     private LoginPageUI loginPageUI;
