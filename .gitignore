@@ -1,2 +1,5 @@
-.idea
-target
+# Maven
+target/
+
+# IntelliJ project files
+.idea/

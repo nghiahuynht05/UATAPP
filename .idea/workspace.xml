@@ -20,24 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c3c0f97d-cfac-46b2-b254-6e001af40aad" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Automation-Android-App.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Automation-Android-App.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/UATPAXPEGASUS/Stepdefs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/UATPAXPEGASUS/Stepdefs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/_env/hooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/_env/hooks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/commons/abstractPages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/commons/AbstractPages.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/interfaces/abstrackPagesUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/interfaces/AbstractPagesUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/pagesObject/HomePO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/pagesObject/HomePO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/pagesObject/LoginPO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/pagesObject/LoginPO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/UATPAXPEGASUS/test.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/UATPAXPEGASUS/test.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-UATPAXPEGASUS.RunCucumberTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-UATPAXPEGASUS.RunCucumberTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/UATPAXPEGASUS.RunCucumberTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/UATPAXPEGASUS.RunCucumberTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/UATPAXPEGASUS/RunCucumberTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/UATPAXPEGASUS/RunCucumberTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/UATPAXPEGASUS/Stepdefs.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/UATPAXPEGASUS/Stepdefs.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/UATPAXPEGASUS/test.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/UATPAXPEGASUS/test.feature" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
