@@ -12,13 +12,10 @@ import java.util.Arrays;
 
 public class AbstractSocket {
 
-
-    public static void main(String[] args) throws URISyntaxException {
-        final Socket socket;
-        String uri = "https://dispatch.beta.qup/vn";
-        socket = IO.socket(uri);
+    public static void conectSocket() throws URISyntaxException {
+        String uri = "https://dispatch.beta.qup.vn";
+        final Socket socket = IO.socket(uri);
         socket.on("connect", new Emitter.Listener() {
-
             @Override
             public void call(Object... objects) {
                 System.out.println("connect = " + objects);
@@ -34,7 +31,7 @@ public class AbstractSocket {
                 try {
                     obj.put("platform", "android");
                     obj.put("phone", phone);
-                    obj.put("fleetId", "yumi");
+                    obj.put("fleetId", "haidr");
                     obj.put("appType", "driver");
                     obj.put("verifyCode", "3210");
                     obj.put("ime", "xxx");
@@ -48,9 +45,16 @@ public class AbstractSocket {
                     public void call(Object... register) {
                         System.out.println("register = " + register);
                         JSONObject obj = (JSONObject) register[0];
+                        System.out.println("register = " + obj);
+
                     }
                 });
             }
         });
+        socket.connect();
+    }
+
+    public static void main(String[] args) throws URISyntaxException {
+        conectSocket();
     }
 }
