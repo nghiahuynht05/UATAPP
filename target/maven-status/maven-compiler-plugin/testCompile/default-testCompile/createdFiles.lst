@@ -1,9 +1,12 @@
-interfaces\AbstractPagesUI.class
+commons\AbstractSocket$1.class
 UATPAXPEGASUS\Stepdefs.class
-pagesObject\LoginPO.class
 interfaces\LoginPageUI.class
-commons\AbstractPages.class
 interfaces\HomePageUI.class
 pagesObject\HomePO.class
+commons\AbstractSocket.class
+interfaces\AbstractPagesUI.class
+pagesObject\LoginPO.class
+commons\AbstractPages.class
+commons\AbstractSocket$1$1.class
 UATPAXPEGASUS\RunCucumberTest.class
 _env\hooks.class

@@ -5,8 +5,6 @@ import commons.AbstractPages;
 import interfaces.LoginPageUI;
 import io.appium.java_client.android.AndroidDriver;
 
-import java.util.List;
-
 /**
  * Created by nghia.huynht on 4/17/2020.
  */
