@@ -7,13 +7,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
-import java.util.Arrays;
 
 
 public class AbstractSocket {
 
-    public static void conectSocket() throws URISyntaxException {
-        String uri = "https://dispatch.beta.qup.vn";
+    public static void connectSocket(String url) throws URISyntaxException {
+        String uri = url;
         final Socket socket = IO.socket(uri);
         socket.on("connect", new Emitter.Listener() {
             @Override
@@ -54,7 +53,14 @@ public class AbstractSocket {
         socket.connect();
     }
 
-    public static void main(String[] args) throws URISyntaxException {
-        conectSocket();
+    public static void disconectSocketEvent(Socket socket) {
+        socket.disconnect();
     }
+
+//    public static void main(String[] args) throws URISyntaxException {
+//        String uri = "https://dispatch.beta.qup.vn";
+//        final Socket socket = IO.socket(uri);
+//        connectSocket("https://dispatch.beta.qup.vn");
+//        disconectSocketEvent(socket);
+//    }
 }

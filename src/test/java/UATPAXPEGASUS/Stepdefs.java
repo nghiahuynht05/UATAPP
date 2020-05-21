@@ -8,6 +8,7 @@ import io.appium.java_client.android.AndroidDriver;
 import commons.AbstractPages;
 import pagesObject.*;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 public class Stepdefs {
@@ -15,14 +16,20 @@ public class Stepdefs {
     AbstractPages abstractPage;
     LoginPO loginPage;
     HomePO homePage;
+    SocketEvent socket;
 
-    public Stepdefs(){
+    public Stepdefs() throws URISyntaxException {
         driver = hooks.openPaxApp();
         abstractPage = new AbstractPages(driver);
         loginPage = new LoginPO(driver);
         homePage = new HomePO(driver);
-
+        socket = new SocketEvent();
         abstractPage.sendAppPackage();
+    }
+
+    @Given("^I want to connect beta server$")
+    public void iConnectEvent() throws URISyntaxException {
+        socket.connectSocketEvent("https://dispatch.beta.qup.vn");
     }
 
     @Given("^I logout if currently logged in$")
