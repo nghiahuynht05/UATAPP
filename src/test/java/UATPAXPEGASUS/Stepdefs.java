@@ -23,7 +23,7 @@ public class Stepdefs {
         abstractPage = new AbstractPages(driver);
         loginPage = new LoginPO(driver);
         homePage = new HomePO(driver);
-        socket = new SocketEvent();
+        socket = new SocketEvent(socket);
         abstractPage.sendAppPackage();
     }
 

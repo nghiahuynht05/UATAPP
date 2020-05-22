@@ -5,15 +5,21 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 import org.json.JSONException;
 import org.json.JSONObject;
+import pagesObject.SocketEvent;
 
 import java.net.URISyntaxException;
 
 
 public class AbstractSocket {
+    SocketEvent socket;
+
+    public AbstractSocket(SocketEvent socket) {
+        this.socket = socket;
+    }
 
     public static void connectSocket(String url) throws URISyntaxException {
         String uri = url;
-        final Socket socket = IO.socket(uri);
+        Socket socket = IO.socket(uri);
         socket.on("connect", new Emitter.Listener() {
             @Override
             public void call(Object... objects) {
