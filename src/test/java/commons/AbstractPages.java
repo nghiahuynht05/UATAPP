@@ -7,11 +7,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -39,10 +35,24 @@ public class AbstractPages {
     public long shortTimeout = 3;
     public static String appPackageId, appName;
     public String appPackage = "mycar";
+    public String toastMessage = "";
 
     public AbstractPages(AndroidDriver driver) {
         this.driver = driver;
         abstractUI = new AbstractPagesUI();
+    }
+
+    public void getToastMessage(String locator) {
+        element = driver.findElement(By.xpath(locator));
+        toastMessage = element.getText();
+    }
+
+    public boolean checkMatchesMessage(String expectData) {
+        if (toastMessage == expectData) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void sleepInSecond(long numberInSecond) {
@@ -119,7 +129,7 @@ public class AbstractPages {
         return actualText;
     }
 
-    public String getTextElementByXpath(String xpathLocator, String attributeValue){
+    public String getTextElementByXpath(String xpathLocator, String attributeValue) {
         xpathLocator = String.format(xpathLocator, attributeValue);
         element = driver.findElement(By.xpath(xpathLocator));
         return element.getText();
@@ -134,7 +144,7 @@ public class AbstractPages {
     }
 
     public boolean checkElementPresentById(String locator) {
-        driver.manage().timeouts().implicitlyWait(shortTimeout, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(longTimeout, TimeUnit.SECONDS);
         locator = String.format(locator, appPackageId);
         elements = driver.findElements(By.id(locator));
         driver.manage().timeouts().implicitlyWait(longTimeout, TimeUnit.SECONDS);
@@ -145,7 +155,7 @@ public class AbstractPages {
         }
     }
 
-    public boolean checkElementDisplayedByXpath(String xpathLocator){
+    public boolean checkElementDisplayedByXpath(String xpathLocator) {
         driver.manage().timeouts().implicitlyWait(shortTimeout, TimeUnit.SECONDS);
         element = driver.findElement(By.xpath(xpathLocator));
         return element.isDisplayed();
@@ -175,13 +185,13 @@ public class AbstractPages {
         }
     }
 
-    public boolean checkElementPresentByXpath(String xpathLocator){
+    public boolean checkElementPresentByXpath(String xpathLocator) {
         driver.manage().timeouts().implicitlyWait(shortTimeout, TimeUnit.SECONDS);
         elements = driver.findElements(By.xpath(xpathLocator));
         driver.manage().timeouts().implicitlyWait(longTimeout, TimeUnit.SECONDS);
-        if(elements.size()>0){
+        if (elements.size() > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

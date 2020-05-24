@@ -23,8 +23,8 @@ public class LoginPO extends AbstractPages {
     }
 
     public void clickToPhoneNumberTextbox() {
-        if (checkElementPresentById(loginPageUI.PHONE_NUMBER_TEXTBOX_1ST_SCREEN)) {
-            clickToElementById(loginPageUI.PHONE_NUMBER_TEXTBOX_1ST_SCREEN);
+        if (checkElementPresentById(loginPageUI.LOGIN_EDIT_HONEWC_TEXTBOX)) {
+            clickToElementById(loginPageUI.LOGIN_EDIT_HONEWC_TEXTBOX);
         }
     }
 
@@ -75,11 +75,11 @@ public class LoginPO extends AbstractPages {
     }
 
     public void inputToPhoneNumberTextbox(String phoneNumber) {
-        sendKeyToElementById(loginPageUI.PHONE_NUMBER_TEXTBOX_LOGIN, phoneNumber);
+        sendKeyToElementById(loginPageUI.LOGIN_EDITPHONE_TEXTBOX, phoneNumber);
     }
 
     public void clickToAgreeToUAndPolicy() {
-        clickToElementById(loginPageUI.TERM_OF_USE_PRIVACY_POLICY_CHECKBOX);
+        clickToElementById(loginPageUI.LOGIN_ACCEPTTERM_CHECKBOX);
     }
 
     public void clickToLoginButton() {
@@ -87,8 +87,8 @@ public class LoginPO extends AbstractPages {
     }
 
     public void inputSMSDefaultCode(String smsCode) {
-        if (checkElementPresentById(loginPageUI.SMS_DEFAULT_TEXBOX) == true) {
-            sendKeyToElementById(loginPageUI.SMS_DEFAULT_TEXBOX, smsCode);
+        if (checkElementPresentById(loginPageUI.LOGIN_VERIFY_CODE) == true) {
+            sendKeyToElementById(loginPageUI.LOGIN_VERIFY_CODE, smsCode);
         }
     }
 
@@ -97,7 +97,7 @@ public class LoginPO extends AbstractPages {
     }
 
     public boolean isLoginPagePresent() {
-        return checkElementPresentById(loginPageUI.TERM_OF_USE_PRIVACY_POLICY_CHECKBOX);
+        return checkElementPresentById(loginPageUI.LOGIN_ACCEPTTERM_CHECKBOX);
     }
 
     public boolean isWelcomeMsgContains(String expectedText) {
@@ -147,5 +147,13 @@ public class LoginPO extends AbstractPages {
 
     public boolean isCurrentlyLoggedIn() {
         return checkElementPresentById(loginPageUI.HOME_BUTTON);
+    }
+
+    public void getToastMessages() {
+        getToastMessage(loginPageUI.LOGIN_TOAST_MESSAGE);
+    }
+
+    public boolean isCheckMatchesMessage(String expectData ){
+        return checkMatchesMessage(expectData );
     }
 }

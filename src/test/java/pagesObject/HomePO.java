@@ -26,8 +26,11 @@ public class HomePO extends AbstractPages {
         clickToElementById(HomePageUI.LOGOUT_BUTTON);
     }
 
+    public boolean openHomeScreen(){
+        return checkElementPresentById(HomePageUI.HOME_MENU_HOME);
+    }
     public boolean isLoginFormDisplayed() {
-        return checkElementPresentById(LoginPageUI.PHONE_NUMBER_TEXTBOX_1ST_SCREEN);
+        return checkElementPresentById(LoginPageUI.LOGIN_EDIT_HONEWC_TEXTBOX);
     }
 
     public boolean isCarImgDisplayed() {

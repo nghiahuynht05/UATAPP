@@ -11,6 +11,7 @@ public class HomePageUI {
 
     //MENUS
     public static final String MENU_BUTTONS = "//android.widget.CheckedTextView[contains(@text, '%s')]";
+    public static final String HOME_MENU_HOME = "%scst_main";
 
     //HOME SCREEN (CAR TYPE)
     public static final String CAR_IMAGE = "%simvVehicle";
