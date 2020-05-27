@@ -1,3 +1,4 @@
+
 package UATPAXPEGASUS;
 
 import _env.hooks;
@@ -5,13 +6,12 @@ import commons.AbstractPages;
 import commons.AbstractSocket;
 import cucumber.api.java.en.Given;
 import io.appium.java_client.android.AndroidDriver;
-import io.socket.client.Socket;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import pagesObject.HomePO;
-import pagesObject.LoginPO;
-import pagesObject.SocketEvent;
+import interfacePackage.HomePO;
+import interfacePackage.LoginPO;
+import interfacePackage.SocketEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,31 +21,26 @@ import java.util.UUID;
 
 public class Stepdefs {
     AndroidDriver driver;
-    Socket socket;
     AbstractPages abstractPage;
-    AbstractSocket abstractSocket;
-
     LoginPO loginPage;
     HomePO homePage;
-    SocketEvent socketEvent;
+    SocketEvent socket;
 
     public Stepdefs() throws URISyntaxException {
         driver = hooks.openPaxApp();
-        socket = hooks.socketEvent();
-
         abstractPage = new AbstractPages(driver);
-        abstractSocket = new AbstractSocket(socket);
-
         loginPage = new LoginPO(driver);
         homePage = new HomePO(driver);
-        socketEvent = new SocketEvent(socket);
-
+        socket = new AbstractSocket();
         abstractPage.sendAppPackage();
     }
-
     @Given("^I want to connect beta server$")
     public void iConnectEvent() throws URISyntaxException {
-        socketEvent.connectSocketEvent();
+        socket.connectSocket("https://dispatch.beta.qup.vn");
+    }
+    @Given("^I want to disconect beta server$")
+    public void iDisconnectEvent() throws URISyntaxException {
+        socket.disconectSocketEvent("https://dispatch.beta.qup.vn");
     }
 
     @Given("^I logout if currently logged in$")

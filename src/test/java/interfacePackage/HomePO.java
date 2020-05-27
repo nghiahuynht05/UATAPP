@@ -1,8 +1,8 @@
-package pagesObject;
+package interfacePackage;
 
 import io.appium.java_client.android.AndroidDriver;
 import commons.*;
-import interfaces.*;
+import defineUIPackage.DefineUI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -20,33 +20,33 @@ public class HomePO extends AbstractPages {
     }
 
     public void logout() {
-        clickToElementById(HomePageUI.HOME_BUTTON);
-        clickToElementById(HomePageUI.PERSONAL_BUTTON);
+        clickToElementById(DefineUI.HOME_BUTTON);
+        clickToElementById(DefineUI.PERSONAL_BUTTON);
         checkBannerAndClose();
-        clickToElementById(HomePageUI.LOGOUT_BUTTON);
+        clickToElementById(DefineUI.LOGOUT_BUTTON);
     }
 
     public boolean openHomeScreen(){
-        return checkElementPresentById(HomePageUI.HOME_MENU_HOME);
+        return checkElementPresentById(DefineUI.HOME_MENU_HOME);
     }
     public boolean isLoginFormDisplayed() {
-        return checkElementPresentById(LoginPageUI.LOGIN_EDIT_HONEWC_TEXTBOX);
+        return checkElementPresentById(DefineUI.LOGIN_EDIT_HONEWC_TEXTBOX);
     }
 
     public boolean isCarImgDisplayed() {
-        return isElementDisplayedById(HomePageUI.CAR_IMAGE);
+        return isElementDisplayedById(DefineUI.CAR_IMAGE);
     }
 
     public boolean isCarNameDisplayed() {
-        return isElementDisplayedById(HomePageUI.CAR_NAME);
+        return isElementDisplayedById(DefineUI.CAR_NAME);
     }
 
     public boolean isCarMaxOfSeatDisplayed() {
-        return isElementDisplayedById(HomePageUI.MAX_OF_SEAT);
+        return isElementDisplayedById(DefineUI.MAX_OF_SEAT);
     }
 
     public boolean isPUEqualsCurrentLocation() {
-        String currentGPS = getTextElementById(HomePageUI.CURRENT_LOCATION_LABEL);
+        String currentGPS = getTextElementById(DefineUI.CURRENT_LOCATION_LABEL);
         if (currentGPS.contains("271 Nguyễn Văn Linh")) {
             return true;
         } else if (currentGPS.contains("Tầng 7, tòa nhà Bưu điện")) {
@@ -67,91 +67,91 @@ public class HomePO extends AbstractPages {
     }
 
     public boolean isThePUWasChanged() {
-        return checkElementPresentById(HomePageUI.BACK_TO_CURRENT_GPS_BUTTON);
+        return checkElementPresentById(DefineUI.BACK_TO_CURRENT_GPS_BUTTON);
     }
 
     public void clickToCurrentGPSButton() {
-        clickToElementById(HomePageUI.BACK_TO_CURRENT_GPS_BUTTON);
+        clickToElementById(DefineUI.BACK_TO_CURRENT_GPS_BUTTON);
     }
 
     public void clickToViewAllButton() {
-        clickToElementById(HomePageUI.VIEW_ALL_BUTTON);
+        clickToElementById(DefineUI.VIEW_ALL_BUTTON);
     }
 
     public void clickToCarImage() {
-        clickToElementById(HomePageUI.CAR_IMAGE);
+        clickToElementById(DefineUI.CAR_IMAGE);
     }
 
     public boolean swipeCarType() {
-        currentCarName = getTextElementById(HomePageUI.CAR_NAME);
+        currentCarName = getTextElementById(DefineUI.CAR_NAME);
         actionMove(920, 1594, 145, 1594);
-        String swipedCarName = getTextElementById(HomePageUI.CAR_NAME);
+        String swipedCarName = getTextElementById(DefineUI.CAR_NAME);
         return (!currentCarName.equals(swipedCarName));
     }
 
     public boolean isMaxLuggageDisplayed() {
-        return checkElementPresentById(HomePageUI.MAX_OF_LUGGAGE);
+        return checkElementPresentById(DefineUI.MAX_OF_LUGGAGE);
     }
 
     public boolean isMinimumFareDisplayed() {
-        return checkElementPresentById(HomePageUI.MINIMUM_FARE_LABEL);
+        return checkElementPresentById(DefineUI.MINIMUM_FARE_LABEL);
     }
 
     public boolean isBaseFareDisplayed() {
-        return checkElementPresentById(HomePageUI.BASE_FARE_LABEL);
+        return checkElementPresentById(DefineUI.BASE_FARE_LABEL);
     }
 
     public boolean isFeePerKMDisplayed() {
-        return checkElementPresentById(HomePageUI.FARE_PER_KM_LABEL);
+        return checkElementPresentById(DefineUI.FARE_PER_KM_LABEL);
     }
 
     public boolean isFeePerMinuteDisplayed() {
-        return checkElementPresentById(HomePageUI.FARE_PER_MINUTE_LABEL);
+        return checkElementPresentById(DefineUI.FARE_PER_MINUTE_LABEL);
     }
 
     public boolean isNoteDescriptionDisplayed() {
-        return checkElementPresentById(HomePageUI.NOTE_DESCRIPTION);
+        return checkElementPresentById(DefineUI.NOTE_DESCRIPTION);
     }
 
     public void clickToSelectButton() {
-        clickToElementById(HomePageUI.SELECT_CAR_BUTTON);
+        clickToElementById(DefineUI.SELECT_CAR_BUTTON);
     }
 
     public boolean isCurrentCarTypeEquals(String carName) {
-        String currentCar = getTextElementById(HomePageUI.CAR_NAME);
+        String currentCar = getTextElementById(DefineUI.CAR_NAME);
         return currentCar.equalsIgnoreCase(carName);
     }
 
     public boolean isPickUpTimeIsNow() {
-        String pickuptype = getTextElementById(HomePageUI.PICKUP_TYPE_NOW);
+        String pickuptype = getTextElementById(DefineUI.PICKUP_TYPE_NOW);
         return pickuptype.equalsIgnoreCase("Now");
     }
 
     public boolean isCarTypeReservationOnly() {
-        clickToElementById(HomePageUI.PICKUP_TYPE);
-        return checkElementIsNotPresentById(HomePageUI.BOOK_NOW_BUTTON);
+        clickToElementById(DefineUI.PICKUP_TYPE);
+        return checkElementIsNotPresentById(DefineUI.BOOK_NOW_BUTTON);
     }
 
     public void selectcarType(String carName) {
-        clickToElementByXpath(HomePageUI.CAR_TYPE_DYNAMIC, carName);
+        clickToElementByXpath(DefineUI.CAR_TYPE_DYNAMIC, carName);
     }
 
     public boolean isCarTypeBothOnDemandAndReservation() {
-        clickToElementById(HomePageUI.PICKUP_TYPE);
-        return checkElementPresentById(HomePageUI.BOOK_NOW_BUTTON);
+        clickToElementById(DefineUI.PICKUP_TYPE);
+        return checkElementPresentById(DefineUI.BOOK_NOW_BUTTON);
     }
 
     public void clickToBackIcon() {
-        clickToElementById(HomePageUI.BACK_ICON);
+        clickToElementById(DefineUI.BACK_ICON);
     }
 
     public void selectPickUpTimeIsNow() {
-        clickToElementById(HomePageUI.PICKUP_TYPE);
-        clickToElementById(HomePageUI.BOOK_NOW_BUTTON);
+        clickToElementById(DefineUI.PICKUP_TYPE);
+        clickToElementById(DefineUI.BOOK_NOW_BUTTON);
     }
 
     public void selectPickUpTimeIsDateTime() {
-        clickToElementById(HomePageUI.PICKUP_TYPE_NOW);
+        clickToElementById(DefineUI.PICKUP_TYPE_NOW);
         actionMove(235, 891, 235, 718);
         clickToDynamicButton("Set time");
     }
@@ -160,57 +160,57 @@ public class HomePO extends AbstractPages {
         Date now = new Date();
         String systemTime = new SimpleDateFormat("dd, HH:mm", Locale.ENGLISH).format(now);
 
-        String picUpTime = getTextElementById(HomePageUI.PICKUP_TYPE_NOW);
+        String picUpTime = getTextElementById(DefineUI.PICKUP_TYPE_NOW);
         System.out.println("Pick up time: " + picUpTime);
         System.out.println("System time: " + systemTime);
         return picUpTime.contains(systemTime);
     }
 
     public boolean isNextButtonPresent(){
-        return isElementDisplayedById(HomePageUI.NEXT_BUTTON_SKIP_DO);
+        return isElementDisplayedById(DefineUI.NEXT_BUTTON_SKIP_DO);
     }
 
     public boolean isNextButtonNotDisplay(){
-        return checkElementIsNotPresentById(HomePageUI.NEXT_BUTTON_SKIP_DO);
+        return checkElementIsNotPresentById(DefineUI.NEXT_BUTTON_SKIP_DO);
     }
 
     public void clickToPUAddress(){
-        clickToElementById(HomePageUI.CURRENT_LOCATION_LABEL);
+        clickToElementById(DefineUI.CURRENT_LOCATION_LABEL);
     }
 
     public void inputToPUAddress(String pickupAddress){
-        sendKeyToElementById(HomePageUI.PICKUP_ADDRESS_TEXTBOX, pickupAddress);
+        sendKeyToElementById(DefineUI.PICKUP_ADDRESS_TEXTBOX, pickupAddress);
     }
 
     public void selectPUFromSuggest(String addressContains){
-        clickToElementByXpath(HomePageUI.ADDRESS_SUGGESTED, addressContains);
+        clickToElementByXpath(DefineUI.ADDRESS_SUGGESTED, addressContains);
     }
 
     public void inputToDOAddress(String destinationAddress){
-        sendKeyToElementById(HomePageUI.DESTINATION_ADDRESS_TEXTBOX, destinationAddress);
+        sendKeyToElementById(DefineUI.DESTINATION_ADDRESS_TEXTBOX, destinationAddress);
     }
 
     public void selectDOFromSuggest(String addressContains){
-        clickToElementByXpath(HomePageUI.ADDRESS_SUGGESTED, addressContains);
+        clickToElementByXpath(DefineUI.ADDRESS_SUGGESTED, addressContains);
     }
 
     public boolean isAddressFormatted(String expectedAddress){
-        String actualAddress = getTextElementById(HomePageUI.PICKUP_ADDRESS_TEXTBOX);
+        String actualAddress = getTextElementById(DefineUI.PICKUP_ADDRESS_TEXTBOX);
         System.out.println(actualAddress);
         return actualAddress.contains(expectedAddress);
     }
 
     public boolean isResultOrdered3rd(String numberOfResult, String resultValue){
-        String firstAddressResult = getTextElementByXpath(HomePageUI.ADDRESS_RESULT_NUMBER, numberOfResult);
+        String firstAddressResult = getTextElementByXpath(DefineUI.ADDRESS_RESULT_NUMBER, numberOfResult);
         System.out.println(firstAddressResult);
         return firstAddressResult.contains(resultValue);
     }
 
     public void clickToDestinationOnHome(){
-        clickToElementById(HomePageUI.DESTINATION_ADDRESS_TEXTBOX);
+        clickToElementById(DefineUI.DESTINATION_ADDRESS_TEXTBOX);
     }
 
     public boolean isDOPinDisplayed(){
-        return checkElementDisplayedByXpath(HomePageUI.DO_PIN);
+        return checkElementDisplayedByXpath(DefineUI.DO_PIN);
     }
 }

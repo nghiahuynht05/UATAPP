@@ -1,7 +1,7 @@
 package commons;
 
 import _env.hooks;
-import interfaces.AbstractPagesUI;
+import defineUIPackage.AbstractPagesUI;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.WaitOptions;

@@ -1,4 +1,4 @@
-package interfaces;
+package defineUIPackage;
 
 /**
  * Created by nghia.huynht on 4/17/2020.
