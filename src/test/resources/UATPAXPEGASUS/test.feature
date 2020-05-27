@@ -3,3 +3,4 @@ Feature: Is it Friday yet?
 
   Scenario: 01. Sunday isn't Friday
     Given I want to connect beta server
+#    Given I want to disconect beta server

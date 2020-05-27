@@ -3,27 +3,33 @@ package commons;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
+import org.hamcrest.Matchers;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Test;
+import org.springframework.stereotype.Service;
 import pagesObject.SocketEvent;
 
 import java.net.URISyntaxException;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
+import static org.junit.Assert.assertThat;
+import static org.openqa.selenium.remote.ErrorCodes.TIMEOUT;
 
-public class AbstractSocket {
-    SocketEvent socket;
+@Service
+public class AbstractSocket implements SocketEvent {
 
-    public AbstractSocket(SocketEvent socket) {
-        this.socket = socket;
-    }
-
-    public static void connectSocket(String url) throws URISyntaxException {
+    @Test(timeout = TIMEOUT)
+    public void connectSocket(String url) throws URISyntaxException {
         String uri = url;
         Socket socket = IO.socket(uri);
-        socket.on("connect", new Emitter.Listener() {
+
+        final BlockingQueue<Object> values = new LinkedBlockingQueue<Object>();
+
+        socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
             @Override
             public void call(Object... objects) {
-                System.out.println("connect = " + objects);
 
                 JSONObject phone = new JSONObject();
                 try {
@@ -45,28 +51,42 @@ public class AbstractSocket {
                     e.printStackTrace();
                 }
                 socket.emit("register", obj);
-                socket.on("register", new Emitter.Listener() {
-                    @Override
-                    public void call(Object... register) {
-                        System.out.println("register = " + register);
-                        JSONObject obj = (JSONObject) register[0];
-                        System.out.println("register = " + obj);
-
-                    }
-                });
             }
+        }).on("register", new Emitter.Listener() {
+
+            @Override
+            public void call(Object... args) {
+                JSONObject obj = (JSONObject) args[0];
+                System.out.println("register = " + obj);
+
+                // BlockingQueue offer(e): add new 1 values to queue
+                values.offer(args);
+            }
+
         });
         socket.connect();
+
+        try {
+            // BlockingQueue take(): return value in queue if queue is empty it will waiting until an element becomes available.
+            Object[] args = (Object[]) values.take();
+            // Check args not empty and have data
+            assertThat(args.length, Matchers.equalTo(1));
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void disconectSocketEvent(Socket socket) {
-        socket.disconnect();
+    @Override
+    public void disconectSocketEvent(String url) throws URISyntaxException {
+        String uri = url;
+        Socket socket = IO.socket(uri);
+        socket.on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
+            @Override
+            public void call(Object... objects) {
+                System.out.println("EVENT_DISCONNECT");
+            }
+        });
     }
 
-//    public static void main(String[] args) throws URISyntaxException {
-//        String uri = "https://dispatch.beta.qup.vn";
-//        final Socket socket = IO.socket(uri);
-//        connectSocket("https://dispatch.beta.qup.vn");
-//        disconectSocketEvent(socket);
-//    }
 }

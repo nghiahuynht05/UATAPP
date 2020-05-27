@@ -18,3 +18,8 @@ Open termial: mvn test
 ## src/resources/UATPAXPEGASUS**: define scenario with file .feature
 
 https://github.com/selenium-cucumber/selenium-cucumber-java-maven-example
+
+# 5. Module project
+- commons: save is all login module
+- interfaces: save is define key, value is UI APP
+- pasgesObject: it is interface package, declare all class using in project

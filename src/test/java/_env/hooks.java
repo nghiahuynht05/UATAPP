@@ -34,7 +34,7 @@ public class hooks {
                 throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
             }
             String packageApp = prop.getProperty("packageApp");
-            System.out.printf(packageApp);
+            System.out.println(packageApp);
             DesiredCapabilities cap = new DesiredCapabilities();
 
             cap.setCapability("deviceName", "Android Emulator");

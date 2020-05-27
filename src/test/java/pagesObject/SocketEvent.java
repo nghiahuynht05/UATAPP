@@ -1,15 +1,10 @@
 package pagesObject;
 
-import commons.AbstractSocket;
-
 import java.net.URISyntaxException;
 
-public class SocketEvent extends AbstractSocket {
-    public SocketEvent(SocketEvent socket) {
-        super(socket);
-    }
+public interface SocketEvent {
 
-    public void connectSocketEvent(String url) throws URISyntaxException {
-        connectSocket(url);
-    }
+    public void connectSocket(String url) throws URISyntaxException;
+    public void disconectSocketEvent(String url) throws URISyntaxException;
+
 }

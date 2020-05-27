@@ -1,12 +1,13 @@
 package UATPAXPEGASUS;
 
 import _env.hooks;
-import cucumber.api.java.en.Given;
-
-import io.appium.java_client.android.AndroidDriver;
-
 import commons.AbstractPages;
-import pagesObject.*;
+import commons.AbstractSocket;
+import cucumber.api.java.en.Given;
+import io.appium.java_client.android.AndroidDriver;
+import pagesObject.HomePO;
+import pagesObject.LoginPO;
+import pagesObject.SocketEvent;
 
 import java.net.URISyntaxException;
 import java.util.List;
@@ -23,13 +24,17 @@ public class Stepdefs {
         abstractPage = new AbstractPages(driver);
         loginPage = new LoginPO(driver);
         homePage = new HomePO(driver);
-        socket = new SocketEvent(socket);
+        socket = new AbstractSocket();
         abstractPage.sendAppPackage();
     }
 
     @Given("^I want to connect beta server$")
     public void iConnectEvent() throws URISyntaxException {
-        socket.connectSocketEvent("https://dispatch.beta.qup.vn");
+        socket.connectSocket("https://dispatch.beta.qup.vn");
+    }
+    @Given("^I want to disconect beta server$")
+    public void iDisconnectEvent() throws URISyntaxException {
+        socket.disconectSocketEvent("https://dispatch.beta.qup.vn");
     }
 
     @Given("^I logout if currently logged in$")
