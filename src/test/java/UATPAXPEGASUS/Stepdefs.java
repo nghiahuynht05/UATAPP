@@ -3,15 +3,15 @@ package UATPAXPEGASUS;
 
 import _env.hooks;
 import commons.AbstractPages;
-import commons.AbstractSocket;
+import commons.AbstractSocketEvent;
 import cucumber.api.java.en.Given;
+import interfacePackage.HomePO;
+import interfacePackage.LoginPO;
+import interfacePackage.SocketEvent;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import interfacePackage.HomePO;
-import interfacePackage.LoginPO;
-import interfacePackage.SocketEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,16 +31,17 @@ public class Stepdefs {
         abstractPage = new AbstractPages(driver);
         loginPage = new LoginPO(driver);
         homePage = new HomePO(driver);
-        socket = new AbstractSocket();
+        socket = new AbstractSocketEvent();
         abstractPage.sendAppPackage();
     }
-    @Given("^I want to connect beta server$")
-    public void iConnectEvent() throws URISyntaxException {
-        socket.connectSocket("https://dispatch.beta.qup.vn");
+    @Given("^I want to register driver with data$")
+    public void iConnectEvent(List<String> table) throws URISyntaxException {
+        socket.connectSocket(table);
     }
-    @Given("^I want to disconect beta server$")
-    public void iDisconnectEvent() throws URISyntaxException {
-        socket.disconectSocketEvent("https://dispatch.beta.qup.vn");
+
+    @Given("^I want to send request accept booking$")
+    public void iAcceptEvent() throws URISyntaxException {
+        socket.acceptPreSocketEvent();
     }
 
     @Given("^I logout if currently logged in$")

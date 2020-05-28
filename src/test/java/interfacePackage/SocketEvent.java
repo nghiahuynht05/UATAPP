@@ -1,9 +1,10 @@
 package interfacePackage;
 
 import java.net.URISyntaxException;
+import java.util.List;
 
 public interface SocketEvent {
 
-    public void connectSocket(String url) throws URISyntaxException;
-    public void disconectSocketEvent(String url) throws URISyntaxException;
+    public void connectSocket(List<String> table) throws URISyntaxException;
+    public void acceptPreSocketEvent() throws URISyntaxException;
 }
