@@ -34,7 +34,6 @@ public class AbstractPages {
     public long longTimeout = 30;
     public long shortTimeout = 3;
     public static String appPackageId, appName;
-    public String appPackage = "mycar";
     public String toastMessage = "";
 
     public AbstractPages(AndroidDriver driver) {

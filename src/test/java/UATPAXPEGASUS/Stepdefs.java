@@ -9,6 +9,7 @@ import interfacePackage.HomePO;
 import interfacePackage.LoginPO;
 import interfacePackage.SocketEvent;
 import io.appium.java_client.android.AndroidDriver;
+import io.socket.client.Socket;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;

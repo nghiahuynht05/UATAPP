@@ -21,8 +21,6 @@ public class hooks {
     private static AndroidDriver driver;
     private static Socket socket;
 
-    private static String packageApp;
-
     @Before
     public static AndroidDriver openPaxApp() {
         InputStream inputStream;
