@@ -10,6 +10,7 @@ import interfacePackage.LoginPO;
 import interfacePackage.SocketEvent;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.io.FileUtils;
+import org.json.JSONException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
@@ -26,7 +27,7 @@ public class Stepdefs {
     HomePO homePage;
     SocketEvent socket;
 
-    public Stepdefs() throws URISyntaxException {
+    public Stepdefs() {
         driver = hooks.openPaxApp();
         abstractPage = new AbstractPages(driver);
         loginPage = new LoginPO(driver);
@@ -34,6 +35,7 @@ public class Stepdefs {
         socket = new AbstractSocketEvent();
         abstractPage.sendAppPackage();
     }
+
     @Given("^I want to register driver with data$")
     public void iConnectEvent(List<String> table) throws URISyntaxException {
         socket.connectSocket(table);
@@ -43,6 +45,8 @@ public class Stepdefs {
     public void iAcceptEvent() throws URISyntaxException {
         socket.acceptPreSocketEvent();
     }
+
+    // ------------Login Screen----------------------- //
 
     @Given("^I logout if currently logged in$")
     public void iLogoutIfCurrentlyLoggedIn() {
@@ -89,7 +93,7 @@ public class Stepdefs {
         loginPage.getToastMessages();
     }
 
-    @Given("I should get the response message matches with language")
+    @Given("I should get the response message matches with")
     public void checkMatchesMessage(List<String> table) {
         loginPage.isCheckMatchesMessage(table.get(1));
     }
@@ -99,12 +103,41 @@ public class Stepdefs {
         loginPage.inputSMSDefaultCode(table.get(1));
     }
 
-    @Given("I should open Home form")
+    @Given("Open application home screen")
     public void openHomeScreen() {
         homePage.openHomeScreen();
     }
 
-    public void takeScreen(){
+    @Given("I want to get content message in popup")
+    public void isGetMessageContent() {
+        loginPage.getContentPopup();
+    }
+
+    // ------------Home Screen----------------------- //
+
+    @Given("I want to get info menu service")
+    public void isMenuService() throws JSONException {
+        homePage.isMenuService();
+    }
+
+    // ------------Commons----------------------- //
+
+    @Given("I should get the response message object matches with")
+    public void isMatchObject(List<String> table) {
+        homePage.isCheckMatchesObject(table);
+    }
+
+    @Given("I want to open menu setting passenger")
+    public void isMenuHome(){
+        homePage.isMenuHome();
+    }
+
+    @Given("I want to open menu {string} setting")
+    public void isOpenSetting(String setting){
+        homePage.isOpenSetting(setting);
+    }
+
+    public void takeScreen() {
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         String filename = UUID.randomUUID().toString();
         File targetFile = new File("src/test/Images/" + filename + ".jpg");

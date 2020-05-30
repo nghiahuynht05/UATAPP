@@ -16,6 +16,38 @@ public class DefineUI {
     public static final String LOGIN_VERIFY_CODE = "%sedtCode";
     public static final String HOME_MENU_HOME = "%scst_main";
 
+    // -------Home screen--------
+    public static final String HOME_MENU_SERVICE = "//androidx.appcompat.app.ActionBar.Tab[@content-desc='%s']";
+    public static final String HOME_BUTTON = "%sbtnHome";
+    public static final String HOME_MENU_SETING = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.FrameLayout[2]/android.view.View/androidx.appcompat.widget.LinearLayoutCompat['%s']";
+    public static final String HOME_SETING_PROFILE = "%sid/navigation_header_container";
+
+    // -------Profile screen--------
+    public static final String HOME_PROFILE_INFO = "%sctlPersonalInfo";
+    public static final String HOME_PROFILE_PLACE = "%stvYourPlace";
+    public static final String HOME_PROFILE_LOGOUT = "%stvLogout";
+    public static final String HOME_PROFILE_INFO_BTAVATAR = "%simvAvatar";
+    public static final String HOME_PROFILE_INFO_FIRSTNAME = "%stvFirstName";
+    public static final String HOME_PROFILE_INFO_LASTNAME = "%stvLastName";
+    public static final String HOME_PROFILE_INFO_PHONE = "%tvPhone";
+    public static final String HOME_PROFILE_INFO_EMAIL = "%tvMail";
+    public static final String HOME_PROFILE_INFO_GENDER = "%tvGenderValue";
+    public static final String HOME_PROFILE_INFO_BIRTHDAY = "%tvDobValue";
+    public static final String HOME_PROFILE_INFO_BTEDIT = "%actionEdit";
+    public static final String HOME_PROFILE_BTBACK = "//android.widget.ImageButton[@content-desc='Navigate up']";
+
+
+    // -------Profile screen--------
+    public static final String HOME_PLACE_HOME = "%sllHomeAddress";
+    public static final String HOME_PLACE_WORK = "%sllWorkAddress";
+    public static final String HOME_PLACE_TITELPLACE = "%sedtName";
+    public static final String HOME_PLACE_EDITADDRESS = "%sedtAddress";
+    public static final String HOME_PLACE_ADD = "%sactionAdd";
+    public static final String HOME_PLACE_SAVE = "%sactionSave";
+
+    // -------Other--------
+    public static final String CONTENT_POPUP = "%stv_content_mess";
+
     public static final String FLEET_CODE_TEXTBOX_DEFAULT = "%sedtFleetCode";
     public static final String DEBUG_AREA = "%stoolbar";
     public static final String PASS_CODE_TEXTBOX = "%sedtPassCode";
@@ -37,9 +69,6 @@ public class DefineUI {
     public static final String INVITATION_CODE_TEXTBOX = "%sedtInvitationCode";
     public static final String SKIP_BUTTON = "%sbtnSkip";
 
-    public static final String HOME_BUTTON = "%sbtnHome";
-    public static final String PERSONAL_BUTTON = "%simvAvatar";
-    public static final String LOGOUT_BUTTON = "%stvLogout";
 
     //MENUS
     public static final String MENU_BUTTONS = "//android.widget.CheckedTextView[contains(@text, '%s')]";
@@ -70,7 +99,6 @@ public class DefineUI {
     public static final String CURRENT_LOCATION_LABEL = "%stvAddress";
     public static final String BACK_TO_CURRENT_GPS_BUTTON = "%simvLocation";
     public static final String MOVE_MAP_BUTTON = "%saction_map";
-    public static final String BACK_BUTTON = "//android.widget.ImageButton[@content-desc='Navigate up']";
     public static final String PIN_ICON = "%spinView";
 
     //ADDRESS

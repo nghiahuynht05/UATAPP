@@ -2,11 +2,14 @@ package commons;
 
 import _env.hooks;
 import defineUIPackage.AbstractPagesUI;
+import defineUIPackage.DefineUI;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.io.FileUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.touch.TouchActions;
@@ -19,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.Duration;
 import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -35,20 +39,62 @@ public class AbstractPages {
     public long shortTimeout = 3;
     public static String appPackageId, appName;
     public String appPackage = "mycar";
-    public String toastMessage = "";
+    public String returnData = "";
+    public JSONObject object = new JSONObject();
 
     public AbstractPages(AndroidDriver driver) {
         this.driver = driver;
         abstractUI = new AbstractPagesUI();
     }
 
+    public JSONObject getMenuService() throws JSONException {
+        String serviceNow = getTextElementByXpath(DefineUI.HOME_MENU_SERVICE, "Now");
+        String serviceLate = getTextElementByXpath(DefineUI.HOME_MENU_SERVICE, "Late");
+        String serviveHourly = getTextElementByXpath(DefineUI.HOME_MENU_SERVICE, "Hourly");
+        String serviceSuperHelper = getTextElementByXpath(DefineUI.HOME_MENU_SERVICE, "SuperHelper");
+        object.put("serviceNow", serviceNow);
+        object.put("serviceLate", serviceLate);
+        object.put("serviveHourly", serviveHourly);
+        object.put("serviceSuperHelper", serviceSuperHelper);
+        return object;
+    }
+
+    public String getContentMessage(String locator) {
+        locator = String.format(locator, appPackageId);
+        element = driver.findElement(By.id(locator));
+        String returnData = element.getText();
+        System.out.printf("return data" + returnData);
+        return returnData;
+    }
+
     public void getToastMessage(String locator) {
         element = driver.findElement(By.xpath(locator));
-        toastMessage = element.getText();
+        returnData = element.getText();
     }
 
     public boolean checkMatchesMessage(String expectData) {
-        if (toastMessage == expectData) {
+        if (returnData == expectData) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractPages)) return false;
+        AbstractPages that = (AbstractPages) o;
+        return Objects.equals(object, that.object);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(object);
+    }
+
+    public boolean checkMatchesObject(List<String> expectData) {
+        if (expectData.equals(object)) {
             return true;
         } else {
             return false;

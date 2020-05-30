@@ -27,6 +27,10 @@ public class LoginPO extends AbstractPages {
         }
     }
 
+    public void getContentPopup() {
+        getContentMessage(DefineUI.CONTENT_POPUP);
+    }
+
     public void longPressToDebugArea() {
         longPressToElementById(DefineUI.DEBUG_AREA);
     }
@@ -152,7 +156,7 @@ public class LoginPO extends AbstractPages {
         getToastMessage(DefineUI.LOGIN_TOAST_MESSAGE);
     }
 
-    public boolean isCheckMatchesMessage(String expectData ){
-        return checkMatchesMessage(expectData );
+    public boolean isCheckMatchesMessage(String expectData) {
+        return checkMatchesMessage(expectData);
     }
 }

@@ -3,9 +3,10 @@ package interfacePackage;
 import io.appium.java_client.android.AndroidDriver;
 import commons.*;
 import defineUIPackage.DefineUI;
+import org.json.JSONException;
+
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * Created by nghia.huynht on 4/17/2020.
@@ -21,14 +22,62 @@ public class HomePO extends AbstractPages {
 
     public void logout() {
         clickToElementById(DefineUI.HOME_BUTTON);
-        clickToElementById(DefineUI.PERSONAL_BUTTON);
+        clickToElementById(DefineUI.HOME_PROFILE_INFO_BTAVATAR);
         checkBannerAndClose();
-        clickToElementById(DefineUI.LOGOUT_BUTTON);
+        clickToElementById(DefineUI.HOME_PROFILE_LOGOUT);
     }
 
-    public boolean openHomeScreen(){
+    public boolean openHomeScreen() {
         return checkElementPresentById(DefineUI.HOME_MENU_HOME);
     }
+
+    public void isMenuService() throws JSONException {
+        getMenuService();
+    }
+
+    public void isCheckMatchesObject(List<String> table) {
+        checkMatchesObject(table);
+    }
+
+    public void isMenuHome() {
+        clickToElementById(DefineUI.HOME_BUTTON);
+    }
+
+    public void isOpenSetting(String setting) {
+        String key = "";
+        switch (setting) {
+            case "Profile":
+                key = "1";
+                break;
+            case "Payment Methods":
+                key = "2";
+                break;
+            case "My Activity":
+                key = "3";
+                break;
+            case "Promotions":
+                key = "4";
+                break;
+            case "Refer Friends":
+                key = "5";
+                break;
+            case "Notification":
+                key = "6";
+                break;
+            case "Emergency":
+                key = "7";
+                break;
+            case "About":
+                key = "8";
+                break;
+        }
+        if (key != "1")
+            clickToElementByXpath(DefineUI.HOME_MENU_SETING, key);
+        else {
+            clickToElementById(DefineUI.HOME_SETING_PROFILE);
+        }
+    }
+
     public boolean isLoginFormDisplayed() {
         return checkElementPresentById(DefineUI.LOGIN_EDIT_HONEWC_TEXTBOX);
     }
@@ -166,51 +215,51 @@ public class HomePO extends AbstractPages {
         return picUpTime.contains(systemTime);
     }
 
-    public boolean isNextButtonPresent(){
+    public boolean isNextButtonPresent() {
         return isElementDisplayedById(DefineUI.NEXT_BUTTON_SKIP_DO);
     }
 
-    public boolean isNextButtonNotDisplay(){
+    public boolean isNextButtonNotDisplay() {
         return checkElementIsNotPresentById(DefineUI.NEXT_BUTTON_SKIP_DO);
     }
 
-    public void clickToPUAddress(){
+    public void clickToPUAddress() {
         clickToElementById(DefineUI.CURRENT_LOCATION_LABEL);
     }
 
-    public void inputToPUAddress(String pickupAddress){
+    public void inputToPUAddress(String pickupAddress) {
         sendKeyToElementById(DefineUI.PICKUP_ADDRESS_TEXTBOX, pickupAddress);
     }
 
-    public void selectPUFromSuggest(String addressContains){
+    public void selectPUFromSuggest(String addressContains) {
         clickToElementByXpath(DefineUI.ADDRESS_SUGGESTED, addressContains);
     }
 
-    public void inputToDOAddress(String destinationAddress){
+    public void inputToDOAddress(String destinationAddress) {
         sendKeyToElementById(DefineUI.DESTINATION_ADDRESS_TEXTBOX, destinationAddress);
     }
 
-    public void selectDOFromSuggest(String addressContains){
+    public void selectDOFromSuggest(String addressContains) {
         clickToElementByXpath(DefineUI.ADDRESS_SUGGESTED, addressContains);
     }
 
-    public boolean isAddressFormatted(String expectedAddress){
+    public boolean isAddressFormatted(String expectedAddress) {
         String actualAddress = getTextElementById(DefineUI.PICKUP_ADDRESS_TEXTBOX);
         System.out.println(actualAddress);
         return actualAddress.contains(expectedAddress);
     }
 
-    public boolean isResultOrdered3rd(String numberOfResult, String resultValue){
+    public boolean isResultOrdered3rd(String numberOfResult, String resultValue) {
         String firstAddressResult = getTextElementByXpath(DefineUI.ADDRESS_RESULT_NUMBER, numberOfResult);
         System.out.println(firstAddressResult);
         return firstAddressResult.contains(resultValue);
     }
 
-    public void clickToDestinationOnHome(){
+    public void clickToDestinationOnHome() {
         clickToElementById(DefineUI.DESTINATION_ADDRESS_TEXTBOX);
     }
 
-    public boolean isDOPinDisplayed(){
+    public boolean isDOPinDisplayed() {
         return checkElementDisplayedByXpath(DefineUI.DO_PIN);
     }
 }
