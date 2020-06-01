@@ -59,6 +59,24 @@ public class AbstractPages {
         return object;
     }
 
+    public JSONObject GetInfoPersonalInfo() throws JSONException {
+        String firstName = getTextElementById(DefineUI.HOME_PROFILE_INFO_FIRSTNAME);
+        String lastName = getTextElementById(DefineUI.HOME_PROFILE_INFO_LASTNAME);
+        String phoneNumber = getTextElementById(DefineUI.HOME_PROFILE_INFO_PHONE);
+        String email = getTextElementById(DefineUI.HOME_PROFILE_INFO_EMAIL);
+        String national = getTextElementById(DefineUI.HOME_PROFILE_NATIONAL);
+        String gender = getTextElementById(DefineUI.HOME_PROFILE_INFO_GENDER);
+        String birthDate = getTextElementById(DefineUI.HOME_PROFILE_INFO_BIRTHDAY);
+        object.put("firstName", firstName);
+        object.put("lastName", lastName);
+        object.put("phoneNumber", phoneNumber);
+        object.put("email", email);
+        object.put("national", national);
+        object.put("gender", gender);
+        object.put("birthDate", birthDate);
+        return object;
+    }
+
     public String getContentMessage(String locator) {
         locator = String.format(locator, appPackageId);
         element = driver.findElement(By.id(locator));
@@ -285,7 +303,7 @@ public class AbstractPages {
         sleepInSecond(1);
     }
 
-    public void hideKeyBoard() {
+    public void isHideKeyboard() {
         driver.hideKeyboard();
     }
 

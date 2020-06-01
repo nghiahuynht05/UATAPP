@@ -1,19 +1,20 @@
 package interfacePackage;
 
-import io.appium.java_client.android.AndroidDriver;
-import commons.*;
+import commons.AbstractPages;
 import defineUIPackage.DefineUI;
+import io.appium.java_client.android.AndroidDriver;
 import org.json.JSONException;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by nghia.huynht on 4/17/2020.
  */
 public class HomePO extends AbstractPages {
 
-    private AbstractPages abstractPage;
     String currentCarName;
 
     public HomePO(AndroidDriver driver) {
@@ -27,21 +28,10 @@ public class HomePO extends AbstractPages {
         clickToElementById(DefineUI.HOME_PROFILE_LOGOUT);
     }
 
-    public boolean openHomeScreen() {
-        return checkElementPresentById(DefineUI.HOME_MENU_HOME);
-    }
-
     public void isMenuService() throws JSONException {
         getMenuService();
     }
 
-    public void isCheckMatchesObject(List<String> table) {
-        checkMatchesObject(table);
-    }
-
-    public void isMenuHome() {
-        clickToElementById(DefineUI.HOME_BUTTON);
-    }
 
     public void isOpenSetting(String setting) {
         String key = "";
@@ -70,12 +60,53 @@ public class HomePO extends AbstractPages {
             case "About":
                 key = "8";
                 break;
+            default:
+                System.out.println("%s" + setting + "not found switch key");
         }
         if (key != "1")
             clickToElementByXpath(DefineUI.HOME_MENU_SETING, key);
         else {
             clickToElementById(DefineUI.HOME_SETING_PROFILE);
         }
+    }
+
+    public void isPersonalInfoSetting(String setting) {
+        switch (setting) {
+            case "Personal info":
+                clickToElementById(DefineUI.HOME_PROFILE_INFO);
+                break;
+            case "Saved places":
+                clickToElementById(DefineUI.HOME_PROFILE_PLACE);
+                break;
+            case "Log out":
+                clickToElementById(DefineUI.HOME_PROFILE_LOGOUT);
+                break;
+            default:
+                System.out.println("%s" + setting + "not found switch key");
+        }
+    }
+
+    public void isGetInfoPersonalInfo() throws JSONException {
+        GetInfoPersonalInfo();
+    }
+
+    public void isInputInfoAcount(List<String> table) {
+        sendKeyToElementById(DefineUI.HOME_PROFILE_INFO_FIRSTNAME, table.get(6));
+        sendKeyToElementById(DefineUI.HOME_PROFILE_INFO_LASTNAME, table.get(7));
+        sendKeyToElementById(DefineUI.HOME_PROFILE_INFO_EMAIL, table.get(8));
+        sendKeyToElementById(DefineUI.HOME_PROFILE_NATIONAL, table.get(9));
+        clickToElementById(DefineUI.HOME_PROFILE_INFO_GENDER);
+        if(table.get(10)=="Male"){
+            clickToElementById(DefineUI.HOME_PROFILE_INFO_GENDER_MALE);
+        }
+        if(table.get(10)=="Female"){
+            clickToElementById(DefineUI.HOME_PROFILE_INFO_GENDER_FEMALE);
+        }
+        if(table.get(10)=="Other"){
+            clickToElementById(DefineUI.HOME_PROFILE_INFO_GENDER_OTHER);
+        }
+        isHideKeyboard();
+        sendKeyToElementById(DefineUI.HOME_PROFILE_INFO_BIRTHDAY, table.get(10));
     }
 
     public boolean isLoginFormDisplayed() {

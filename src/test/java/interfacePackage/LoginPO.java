@@ -138,10 +138,6 @@ public class LoginPO extends AbstractPages {
         }
     }
 
-    public void clickToSaveButton() {
-        clickToElementById(DefineUI.SAVE_BUTTON);
-    }
-
     public void clickToSkipButton() {
         if (checkElementPresentById(DefineUI.SKIP_BUTTON)) {
             clickToElementById(DefineUI.SKIP_BUTTON);

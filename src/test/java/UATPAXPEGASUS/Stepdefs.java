@@ -7,6 +7,7 @@ import commons.AbstractSocketEvent;
 import cucumber.api.java.en.Given;
 import interfacePackage.HomePO;
 import interfacePackage.LoginPO;
+import interfacePackage.commons;
 import interfacePackage.SocketEvent;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.io.FileUtils;
@@ -26,12 +27,14 @@ public class Stepdefs {
     LoginPO loginPage;
     HomePO homePage;
     SocketEvent socket;
+    commons commons;
 
     public Stepdefs() {
         driver = hooks.openPaxApp();
         abstractPage = new AbstractPages(driver);
         loginPage = new LoginPO(driver);
         homePage = new HomePO(driver);
+        commons = new commons(driver);
         socket = new AbstractSocketEvent();
         abstractPage.sendAppPackage();
     }
@@ -103,11 +106,6 @@ public class Stepdefs {
         loginPage.inputSMSDefaultCode(table.get(1));
     }
 
-    @Given("Open application home screen")
-    public void openHomeScreen() {
-        homePage.openHomeScreen();
-    }
-
     @Given("I want to get content message in popup")
     public void isGetMessageContent() {
         loginPage.getContentPopup();
@@ -120,21 +118,50 @@ public class Stepdefs {
         homePage.isMenuService();
     }
 
+    @Given("I want to open {string} setting")
+    public void isOpenSetting(String setting) {
+        homePage.isOpenSetting(setting);
+    }
+
+    @Given("I want to open {string} in Profile Setting")
+    public void isPersonalInfoSetting(String setting) {
+        homePage.isPersonalInfoSetting(setting);
+    }
+
+    @Given("I want to get info personal info")
+    public void isInfoPersonalInfo() throws JSONException {
+        homePage.isGetInfoPersonalInfo();
+    }
+
+    @Given("I want to edit info account with data")
+    public void isInputInfoAcount(List<String> table) {
+        homePage.isInputInfoAcount(table);
+    }
     // ------------Commons----------------------- //
 
     @Given("I should get the response message object matches with")
     public void isMatchObject(List<String> table) {
-        homePage.isCheckMatchesObject(table);
+        commons.isCheckMatchesObject(table);
     }
 
     @Given("I want to open menu setting passenger")
-    public void isMenuHome(){
-        homePage.isMenuHome();
+    public void isMenuHome() {
+        commons.isMenuHome();
     }
 
-    @Given("I want to open menu {string} setting")
-    public void isOpenSetting(String setting){
-        homePage.isOpenSetting(setting);
+    @Given("I want to touch button Edit")
+    public void isActionEdit() {
+        commons.isActionEdit();
+    }
+
+    @Given("I wan to hide keyboard")
+    public void isHideKeyboard() {
+        commons.isHideKeyboard();
+    }
+
+    @Given("Open application home screen")
+    public void openHomeScreen() {
+        commons.openHomeScreen();
     }
 
     public void takeScreen() {

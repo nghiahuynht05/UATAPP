@@ -20,7 +20,7 @@ public class DefineUI {
     public static final String HOME_MENU_SERVICE = "//androidx.appcompat.app.ActionBar.Tab[@content-desc='%s']";
     public static final String HOME_BUTTON = "%sbtnHome";
     public static final String HOME_MENU_SETING = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.FrameLayout[2]/android.view.View/androidx.appcompat.widget.LinearLayoutCompat['%s']";
-    public static final String HOME_SETING_PROFILE = "%sid/navigation_header_container";
+    public static final String HOME_SETING_PROFILE = "%snavigation_header_container";
 
     // -------Profile screen--------
     public static final String HOME_PROFILE_INFO = "%sctlPersonalInfo";
@@ -29,13 +29,16 @@ public class DefineUI {
     public static final String HOME_PROFILE_INFO_BTAVATAR = "%simvAvatar";
     public static final String HOME_PROFILE_INFO_FIRSTNAME = "%stvFirstName";
     public static final String HOME_PROFILE_INFO_LASTNAME = "%stvLastName";
-    public static final String HOME_PROFILE_INFO_PHONE = "%tvPhone";
-    public static final String HOME_PROFILE_INFO_EMAIL = "%tvMail";
-    public static final String HOME_PROFILE_INFO_GENDER = "%tvGenderValue";
-    public static final String HOME_PROFILE_INFO_BIRTHDAY = "%tvDobValue";
-    public static final String HOME_PROFILE_INFO_BTEDIT = "%actionEdit";
+    public static final String HOME_PROFILE_INFO_PHONE = "%stvPhone";
+    public static final String HOME_PROFILE_INFO_EMAIL = "%stvMail";
+    public static final String HOME_PROFILE_INFO_GENDER = "%stvGenderValue";
+    public static final String HOME_PROFILE_INFO_BIRTHDAY = "%stvDobValue";
     public static final String HOME_PROFILE_BTBACK = "//android.widget.ImageButton[@content-desc='Navigate up']";
-
+    public static final String HOME_PROFILE_NATIONAL = "%sedtNationalIC";
+    public static final String HOME_PROFILE_INFO_GENDER_MALE = "%stvGenderValue";
+    public static final String HOME_PROFILE_INFO_GENDER_FEMALE = "%stvGenderValue";
+    public static final String HOME_PROFILE_INFO_GENDER_OTHER = "%stvGenderValue";
+    public static final String HOME_PROFILE_NAME = "%stvName";
 
     // -------Profile screen--------
     public static final String HOME_PLACE_HOME = "%sllHomeAddress";
@@ -47,6 +50,9 @@ public class DefineUI {
 
     // -------Other--------
     public static final String CONTENT_POPUP = "%stv_content_mess";
+    public static final String ACTION_EDIT = "%sactionEdit";
+    public static final String ACTION_SAVE = "%sactionSave";
+    public static final String ACTION_CANCEL = "%sbtnCancel";
 
     public static final String FLEET_CODE_TEXTBOX_DEFAULT = "%sedtFleetCode";
     public static final String DEBUG_AREA = "%stoolbar";
@@ -65,7 +71,6 @@ public class DefineUI {
 
     public static final String REGISTER_TEXTBOXES = "//android.widget.EditText[contains(@text, '%s')]";
     public static final String GENDER_BUTTONS = "//android.widget.Button[@text='%s']";
-    public static final String SAVE_BUTTON = "%sactionSave";
     public static final String INVITATION_CODE_TEXTBOX = "%sedtInvitationCode";
     public static final String SKIP_BUTTON = "%sbtnSkip";
 
@@ -109,7 +114,6 @@ public class DefineUI {
     public static final String DO_PIN = "//android.view.View[@content-desc='Google Map']/android.view.View[2]";
 
     public static final String BANNER = "%simv_banner";
-    public static final String BANNER_CLOSE_BUTTON = "%sbtnCancel";
     public static final String DYNAMIC_BUTTON = "//android.widget.Button[@text='%s']";
 
 }
