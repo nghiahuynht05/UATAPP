@@ -3,3 +3,6 @@ target/
 
 # IntelliJ project files
 .idea/
+
+# Images
+src/test/Images/

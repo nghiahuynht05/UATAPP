@@ -7,10 +7,9 @@ import commons.AbstractSocketEvent;
 import cucumber.api.java.en.Given;
 import interfacePackage.HomePO;
 import interfacePackage.LoginPO;
-import interfacePackage.commons;
 import interfacePackage.SocketEvent;
+import interfacePackage.commons;
 import io.appium.java_client.android.AndroidDriver;
-import io.socket.client.Socket;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONException;
 import org.openqa.selenium.OutputType;
@@ -40,14 +39,14 @@ public class Stepdefs {
         abstractPage.sendAppPackage();
     }
 
-    @Given("^I want to register driver with data$")
-    public void iConnectEvent(List<String> table) throws URISyntaxException {
-        socket.connectSocket(table);
+    @Given("Register and start status receive booking type {string} of driver")
+    public void iConnectEvent(String bookType, List<String> table) throws URISyntaxException {
+        socket.connectSocket(bookType, table);
     }
 
     @Given("^I want to send request accept booking$")
     public void iAcceptEvent() throws URISyntaxException {
-        socket.acceptPreSocketEvent();
+//        socket.acceptPreSocketEvent();
     }
 
     // ------------Login Screen----------------------- //

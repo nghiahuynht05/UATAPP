@@ -18,7 +18,6 @@ import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.openqa.selenium.remote.ErrorCodes.TIMEOUT;
@@ -26,7 +25,7 @@ import static org.openqa.selenium.remote.ErrorCodes.TIMEOUT;
 @Service
 public class AbstractSocketEvent implements SocketEvent {
     private Socket socket;
-
+    public String bookId;
     Socket client() throws URISyntaxException {
         return client(createOptions());
     }
@@ -78,11 +77,24 @@ public class AbstractSocketEvent implements SocketEvent {
     }
 
     @Test(timeout = TIMEOUT)
-    public void connectSocket(List<String> table) throws URISyntaxException {
+    public void connectSocket(String string, List<String> table) throws URISyntaxException {
+        String rqEvent = "";
+        String acceptEvent = "";
 
         final BlockingQueue<Object> values = new LinkedBlockingQueue<Object>();
-        socket = client();
+        IO.Options opts = new IO.Options();
+        opts.forceNew = true;
+        opts.reconnection = false;
+        socket = IO.socket(uri(), opts);
 
+        if (string.equals("Now")) {
+            rqEvent = "rqJob";
+            acceptEvent = "accept";
+        } else {
+            rqEvent = "rqJobPre";
+            acceptEvent = "acceptPre";
+        }
+        String finalAcceptEvent = acceptEvent;
         socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
 
             @Override
@@ -108,6 +120,7 @@ public class AbstractSocketEvent implements SocketEvent {
                     e.printStackTrace();
                 }
                 socket.emit("register", obj);
+
             }
         }).on("register", new Emitter.Listener() {
 
@@ -115,70 +128,54 @@ public class AbstractSocketEvent implements SocketEvent {
             public void call(Object... args) {
                 /*JSONObject obj = (JSONObject) args[0];
                 System.out.println("register = " + obj);*/
-
+                JSONObject location = new JSONObject();
+                try {
+                    location.put("geo", "[108.21174351895205,16.059379170460254]");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                socket.emit("updateLocation");
                 // BlockingQueue offer(e): add new 1 values to queue
-                values.offer(args);
+//                values.offer(args);
             }
 
+        }).on(rqEvent, new Emitter.Listener() {
+            @Override
+            public void call(Object... objects) {
+
+                JSONObject object = (JSONObject) objects[0];
+                JSONObject params = new JSONObject();
+                try {
+                    String bookId = object.getString("bookId");
+                    String bookFrom = object.getString("bookFrom");
+                    params.put("bookId", bookId);
+                    params.put("bookFrom", bookFrom);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                socket.emit(finalAcceptEvent, params);
+            }
+        }).on(finalAcceptEvent, new Emitter.Listener() {
+            @Override
+            public void call(Object... objects) {
+                JSONObject response = (JSONObject) objects[0];
+                try {
+                    bookId = response.getString("BookId");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                values.offer(objects);
+            }
         });
         try {
             socket.connect();
 
             Object[] args = (Object[])values.take();
             assertThat(args.length, is(1));
-            socket.close();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    @Test(timeout = TIMEOUT)
-    public void acceptPreSocketEvent() throws URISyntaxException {
-
-        final BlockingQueue<Object> values = new LinkedBlockingQueue<Object>();
-        socket = client();
-
-        socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
-
-            @Override
-            public void call(Object... objects) {
-                System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz" + objects);
-            }
-        }).on("rqJob", new Emitter.Listener() {
-            @Override
-            public void call(Object... objects) {
-                JSONObject obj = (JSONObject) objects[0];
-                System.out.println("rqJob = " + obj);
-                try {
-                    try {
-                        assertThat(values.take(), instanceOf(String.class));
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    String bookId = obj.getString("bookId");
-                    String bookFrom = obj.getString("bookFrom");
-                    JSONObject params = new JSONObject();
-                    params.put("bookId", bookId);
-                    params.put("bookFrom", bookFrom);
-                    socket.emit("accept", params);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).on("accept", new Emitter.Listener() {
-            @Override
-            public void call(Object... objects) {
-                final BlockingQueue<Object> values = new LinkedBlockingQueue<Object>();
-                try {
-                    socket.connect();
-                    values.take();
-                    socket.close();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-    }
 }

@@ -5,6 +5,5 @@ import java.util.List;
 
 public interface SocketEvent {
 
-    public void connectSocket(List<String> table) throws URISyntaxException;
-    public void acceptPreSocketEvent() throws URISyntaxException;
+    public void connectSocket(String string, List<String> table) throws URISyntaxException;
 }
