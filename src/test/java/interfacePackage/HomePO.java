@@ -21,7 +21,7 @@ public class HomePO extends AbstractPages {
         super(driver);
     }
 
-    public void logout() {
+    public void logout(){
         clickToElementById(DefineUI.HOME_BUTTON);
         clickToElementById(DefineUI.HOME_PROFILE_INFO_BTAVATAR);
         checkBannerAndClose();

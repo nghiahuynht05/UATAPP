@@ -4,6 +4,8 @@ import interfacePackage.SocketEvent;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -26,6 +28,8 @@ import static org.openqa.selenium.remote.ErrorCodes.TIMEOUT;
 public class AbstractSocketEvent implements SocketEvent {
     private Socket socket;
     public String bookId;
+    private static final Logger LOGGER = LogManager.getLogger(AbstractSocketEvent.class);
+
     Socket client() throws URISyntaxException {
         return client(createOptions());
     }
@@ -94,7 +98,10 @@ public class AbstractSocketEvent implements SocketEvent {
             rqEvent = "rqJobPre";
             acceptEvent = "acceptPre";
         }
+
         String finalAcceptEvent = acceptEvent;
+        String finalRqEvent = rqEvent;
+
         socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
 
             @Override
@@ -126,8 +133,8 @@ public class AbstractSocketEvent implements SocketEvent {
 
             @Override
             public void call(Object... args) {
-                /*JSONObject obj = (JSONObject) args[0];
-                System.out.println("register = " + obj);*/
+                JSONObject obj = (JSONObject) args[0];
+                LOGGER.info("Event: 'register': {}", obj);
                 JSONObject location = new JSONObject();
                 try {
                     location.put("geo", "[108.21174351895205,16.059379170460254]");
@@ -135,8 +142,6 @@ public class AbstractSocketEvent implements SocketEvent {
                     e.printStackTrace();
                 }
                 socket.emit("updateLocation");
-                // BlockingQueue offer(e): add new 1 values to queue
-//                values.offer(args);
             }
 
         }).on(rqEvent, new Emitter.Listener() {
@@ -153,23 +158,24 @@ public class AbstractSocketEvent implements SocketEvent {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                values.offer(objects);
+                LOGGER.info("Event: '{}': {}", finalRqEvent, object);
                 socket.emit(finalAcceptEvent, params);
             }
         }).on(finalAcceptEvent, new Emitter.Listener() {
             @Override
             public void call(Object... objects) {
                 JSONObject response = (JSONObject) objects[0];
+                LOGGER.info("Event: '{}': {}", finalAcceptEvent, response);
                 try {
                     bookId = response.getString("BookId");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                values.offer(objects);
             }
         });
         try {
             socket.connect();
-
             Object[] args = (Object[])values.take();
             assertThat(args.length, is(1));
 

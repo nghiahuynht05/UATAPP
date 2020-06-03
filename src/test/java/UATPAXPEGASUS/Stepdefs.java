@@ -10,6 +10,7 @@ import interfacePackage.LoginPO;
 import interfacePackage.SocketEvent;
 import interfacePackage.commons;
 import io.appium.java_client.android.AndroidDriver;
+import io.cucumber.datatable.DataTable;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONException;
 import org.openqa.selenium.OutputType;
@@ -20,6 +21,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.UUID;
+
+import static org.junit.Assert.assertTrue;
 
 public class Stepdefs {
     AndroidDriver driver;
@@ -44,10 +47,6 @@ public class Stepdefs {
         socket.connectSocket(bookType, table);
     }
 
-    @Given("^I want to send request accept booking$")
-    public void iAcceptEvent() throws URISyntaxException {
-//        socket.acceptPreSocketEvent();
-    }
 
     // ------------Login Screen----------------------- //
 
@@ -98,7 +97,7 @@ public class Stepdefs {
 
     @Given("I should get the response message matches with")
     public void checkMatchesMessage(List<String> table) {
-        loginPage.isCheckMatchesMessage(table.get(1));
+        assertTrue(loginPage.isCheckMatchesMessage(table.get(1)));
     }
 
     @Given("I should open form verify code and send data")
@@ -139,9 +138,9 @@ public class Stepdefs {
     }
     // ------------Commons----------------------- //
 
-    @Given("I should get the response message object matches with")
-    public void isMatchObject(List<String> table) {
-        commons.isCheckMatchesObject(table);
+    @Given("I should get the response data matches with")
+    public void iMatchDataJSON(DataTable table) throws JSONException {
+        assertTrue(commons.isMacthDataJSON(table));
     }
 
     @Given("I want to open menu setting passenger")
@@ -161,7 +160,7 @@ public class Stepdefs {
 
     @Given("Open application home screen")
     public void openHomeScreen() {
-        commons.openHomeScreen();
+        assertTrue(commons.openHomeScreen());
     }
 
     public void takeScreen() {

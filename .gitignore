@@ -6,3 +6,6 @@ target/
 
 # Images
 src/test/Images/
+
+# Debug log
+logs/

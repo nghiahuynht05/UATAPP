@@ -7,3 +7,6 @@ Feature: Home screen passenger app
   Scenario: 01. Check case show menu service type
     Given Open application home screen
     When I want to get info menu service
+    Then I should get the response data matches with
+      | serviceNow | serviceLate | serviveHourly | serviceSuperHelper |
+      |            | 123         |               |                    |
