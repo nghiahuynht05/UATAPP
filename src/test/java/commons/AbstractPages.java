@@ -43,7 +43,6 @@ public class AbstractPages {
     public long longTimeout = 30;
     public long shortTimeout = 3;
     public static String appPackageId, appName;
-    public String appPackage = "mycar";
     public String returnData = "";
     private static final Logger LOGGER = LogManager.getLogger(AbstractSocketEvent.class);
     public JSONObject responseData = new JSONObject();
@@ -60,9 +59,7 @@ public class AbstractPages {
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    public boolean MacthDataJSON(DataTable dataTable) throws JSONException {
-
-        responseData.put("bookId", "123");
+    public boolean MacthDataJSON(DataTable dataTable) {
         for (Map<Object, Object> data : dataTable.asMaps(String.class, String.class)) {
             try {
                 expectData.put("serviceNow", data.get("serviceNow"));

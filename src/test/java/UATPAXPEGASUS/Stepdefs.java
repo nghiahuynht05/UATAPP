@@ -2,8 +2,15 @@
 package UATPAXPEGASUS;
 
 import _env.hooks;
+import com.google.gson.Gson;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import commons.AbstractPages;
 import commons.AbstractSocketEvent;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import interfacePackage.HomePO;
 import interfacePackage.LoginPO;
@@ -12,16 +19,25 @@ import interfacePackage.commons;
 import io.appium.java_client.android.AndroidDriver;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class Stepdefs {
@@ -31,9 +47,12 @@ public class Stepdefs {
     HomePO homePage;
     SocketEvent socket;
     commons commons;
+    private final Logger LOGGER = LogManager.getLogger( AbstractSocketEvent.class );
+    Gson gson = new Gson();
+    hooks hooks;
 
     public Stepdefs() {
-        driver = hooks.openPaxApp();
+//        driver = hooks.openPaxApp();
         abstractPage = new AbstractPages(driver);
         loginPage = new LoginPO(driver);
         homePage = new HomePO(driver);
@@ -42,11 +61,79 @@ public class Stepdefs {
         abstractPage.sendAppPackage();
     }
 
+    @Before
+    public void beforeScenario() {
+        hooks.openPaxApp();
+    }
+
+    String uri() {
+        InputStream inputStream;
+        Properties prop = new Properties();
+        String propFileName = "config.properties";
+
+        inputStream = AbstractSocketEvent.class.getClassLoader().getResourceAsStream( propFileName );
+        if (inputStream != null) {
+            try {
+                prop.load( inputStream );
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                throw new FileNotFoundException( "property file '" + propFileName + "' not found in the classpath" );
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        String uri = prop.getProperty( "apiServer" );
+        return uri;
+    }
+
+    @After
+    public void afterScenario() throws JSONException, UnirestException {
+        final BlockingQueue<Object> values = new LinkedBlockingQueue<Object>();
+        String token = socket.httpRequestAPI();
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put( "Content-Type", "application/json" );
+        headers.put( "Authorization", token );
+
+        HttpResponse<JsonNode> response = null;
+
+        JSONObject objBody = new JSONObject();
+        objBody.put( "limit", 50 );
+
+        response = Unirest.post( uri() + "/api/booking/find" )
+                .headers( headers )
+                .body( objBody )
+                .asJson();
+        JSONObject jsonObject = response.getBody().getObject();
+        values.offer( jsonObject );
+        try {
+            JSONObject args = (JSONObject) values.take();
+            assertThat( args.length(), is( 1 ) );
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        JSONObject resObj = jsonObject.getJSONObject( "res" );
+        JSONArray resList = resObj.getJSONArray( "list" );
+        JSONObject listObject = resList.getJSONObject( 0 );
+        LOGGER.info( "List booking: {}", listObject.toString() );
+        String bookId = gson.toJson( listObject.get( "bookId" ) ).toString();
+        LOGGER.info( "BookId: {}", bookId );
+    }
+
     @Given("Register and start status receive booking type {string} of driver")
     public void iConnectEvent(String bookType, List<String> table) throws URISyntaxException {
         socket.connectSocket(bookType, table);
     }
 
+    @Given("an api token after logined command center")
+    public void httpRequestAPI() throws JSONException, UnirestException {
+        socket.httpRequestAPI();
+    }
 
     // ------------Login Screen----------------------- //
 

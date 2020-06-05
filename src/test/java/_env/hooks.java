@@ -1,9 +1,12 @@
 package _env;
 
+import commons.AbstractSocketEvent;
+import cucumber.api.java.Before;
+import interfacePackage.SocketEvent;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import io.socket.client.Socket;
-import org.junit.Before;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.FileNotFoundException;
@@ -17,9 +20,11 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by nghia.huynht on 12/26/2019.
  */
+
 public class hooks {
     private static AndroidDriver driver;
-    private static Socket socket;
+    public static Logger LOGGER = LogManager.getLogger(AbstractSocketEvent.class);
+    SocketEvent socket;
 
     @Before
     public static AndroidDriver openPaxApp() {
@@ -35,7 +40,7 @@ public class hooks {
                 throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
             }
             String packageApp = prop.getProperty("packageApp");
-            System.out.println(packageApp);
+            LOGGER.info("packageApp: {}", packageApp);
             DesiredCapabilities cap = new DesiredCapabilities();
 
             cap.setCapability("deviceName", "Android Emulator");

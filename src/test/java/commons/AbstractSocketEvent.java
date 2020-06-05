@@ -1,5 +1,10 @@
 package commons;
 
+import com.google.gson.Gson;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import interfacePackage.SocketEvent;
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -68,6 +73,29 @@ public class AbstractSocketEvent implements SocketEvent {
 
         String uri = prop.getProperty("uriLab");
         return uri;
+    }
+    String uriAPI() {
+        InputStream inputStream;
+        Properties prop = new Properties();
+        String propFileName = "config.properties";
+
+        inputStream = AbstractSocketEvent.class.getClassLoader().getResourceAsStream(propFileName);
+        if (inputStream != null) {
+            try {
+                prop.load(inputStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        String uriAPI = prop.getProperty("apiServer");
+        return uriAPI;
     }
 
     String nsp() {
@@ -184,4 +212,33 @@ public class AbstractSocketEvent implements SocketEvent {
         }
     }
 
+    @Test(timeout = TIMEOUT)
+    public String httpRequestAPI() throws JSONException, UnirestException {
+        final BlockingQueue<Object> values = new LinkedBlockingQueue<Object>();
+
+        HttpResponse<JsonNode> response = null;
+        response = Unirest.post( uriAPI() + "/api/user/login" )
+                .header( "Content-Type", "application/json" )
+                .body( "{\"username\":\"auto_user01\",\"password\":\"Qup@12345\"}" )
+                .asJson();
+        JSONObject jsonObject = response.getBody().getObject();
+        values.offer( jsonObject );
+        try {
+            JSONObject args = (JSONObject) values.take();
+            assertThat( args.length(), is( 1 ) );
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        JSONObject resObj = jsonObject.getJSONObject( "res" );
+        Gson gson = new Gson();
+        String token = gson.toJson( resObj.get( "token" ) ).toString();
+        LOGGER.info( "Token login: {}", token );
+
+        if (token != null) {
+            return token;
+        } else {
+            return null;
+        }
+    }
 }
