@@ -5,6 +5,6 @@ import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = {"pretty"}, features = "src/test/resources/UATPAXPEGASUS/home-passenger-app.feature")
+@CucumberOptions(plugin = {"pretty"}, features = "src/test/resources/UATPAXPEGASUS/login-passenger-app.feature")
 public class RunCucumberTest {
 }

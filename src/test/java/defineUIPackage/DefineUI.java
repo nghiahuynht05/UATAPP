@@ -15,12 +15,14 @@ public class DefineUI {
     public static final String LOGIN_TOAST_MESSAGE = "/hierarchy/android.widget.Toast";
     public static final String LOGIN_VERIFY_CODE = "%sedtCode";
     public static final String HOME_MENU_HOME = "%scst_main";
-
+    public static final String BUTTON_OK = "%sbtnOK";
+    public static final String LOGIN_FIRST_NAME = "%StilFirstName";
     // -------Home screen--------
     public static final String HOME_MENU_SERVICE = "//androidx.appcompat.app.ActionBar.Tab[@content-desc='%s']";
     public static final String HOME_BUTTON = "%sbtnHome";
     public static final String HOME_MENU_SETING = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.FrameLayout[2]/android.view.View/androidx.appcompat.widget.LinearLayoutCompat['%s']";
     public static final String HOME_SETING_PROFILE = "%snavigation_header_container";
+    public static final String HOME_PICK_UP = "%stvPickup";
 
     // -------Profile screen--------
     public static final String HOME_PROFILE_INFO = "%sctlPersonalInfo";
@@ -107,7 +109,6 @@ public class DefineUI {
     public static final String PIN_ICON = "%spinView";
 
     //ADDRESS
-    public static final String PICKUP_ADDRESS_TEXTBOX = "%stvPickup";
     public static final String DESTINATION_ADDRESS_TEXTBOX = "%stvDestination";
     public static final String ADDRESS_SUGGESTED = "//android.widget.TextView[contains(@text, '%s')]";
     public static final String ADDRESS_RESULT_NUMBER = "//android.view.ViewGroup[%s]/android.widget.TextView[@resource-id='com.mycar.passenger:id/tvNameLocation']";

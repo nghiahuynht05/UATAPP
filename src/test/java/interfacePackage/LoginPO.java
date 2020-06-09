@@ -43,6 +43,10 @@ public class LoginPO extends AbstractPages {
         clickToElementByXpath(DefineUI.YES_NO_BUTTON, yesNoValue);
     }
 
+    public void clickToOKButton() {
+        clickToElementById( DefineUI.BUTTON_OK );
+    }
+
     public void selectServer(String server, String fleetCode) {
         if (server.equalsIgnoreCase("local")) {
             clickToElementByXpath(DefineUI.DYNAMIC_SERVERS_TAB, "Local");

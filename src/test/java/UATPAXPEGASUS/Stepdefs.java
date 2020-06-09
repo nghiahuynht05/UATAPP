@@ -7,15 +7,13 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import commons.AbstractAPI;
 import commons.AbstractPages;
 import commons.AbstractSocketEvent;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
-import interfacePackage.HomePO;
-import interfacePackage.LoginPO;
-import interfacePackage.SocketEvent;
-import interfacePackage.commons;
+import interfacePackage.*;
 import io.appium.java_client.android.AndroidDriver;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.io.FileUtils;
@@ -46,24 +44,22 @@ public class Stepdefs {
     LoginPO loginPage;
     HomePO homePage;
     SocketEvent socket;
+    APIRequest clientAPI;
     commons commons;
-    private final Logger LOGGER = LogManager.getLogger( AbstractSocketEvent.class );
-    Gson gson = new Gson();
     hooks hooks;
 
+    private final Logger LOGGER = LogManager.getLogger( AbstractSocketEvent.class );
+    Gson gson = new Gson();
+
     public Stepdefs() {
-//        driver = hooks.openPaxApp();
+        driver = hooks.openPaxApp();
         abstractPage = new AbstractPages(driver);
         loginPage = new LoginPO(driver);
         homePage = new HomePO(driver);
         commons = new commons(driver);
         socket = new AbstractSocketEvent();
+        clientAPI = new AbstractAPI();
         abstractPage.sendAppPackage();
-    }
-
-    @Before
-    public void beforeScenario() {
-        hooks.openPaxApp();
     }
 
     String uri() {
@@ -90,10 +86,10 @@ public class Stepdefs {
         return uri;
     }
 
-    @After
+//    @After
     public void afterScenario() throws JSONException, UnirestException {
         final BlockingQueue<Object> values = new LinkedBlockingQueue<Object>();
-        String token = socket.httpRequestAPI();
+        String token = clientAPI.httpRequestAPI();
 
         Map<String, String> headers = new HashMap<>();
         headers.put( "Content-Type", "application/json" );
@@ -132,7 +128,7 @@ public class Stepdefs {
 
     @Given("an api token after logined command center")
     public void httpRequestAPI() throws JSONException, UnirestException {
-        socket.httpRequestAPI();
+        clientAPI.httpRequestAPI();
     }
 
     // ------------Login Screen----------------------- //
@@ -197,6 +193,17 @@ public class Stepdefs {
         loginPage.getContentPopup();
     }
 
+    @Given("I want to reset data login passenger with data")
+    public void resetRegiter(List<String> table) throws URISyntaxException {
+        socket.resetRegiter( table );
+    }
+
+    @Given("I want to tap button OK")
+    public void clickToOKButton() {
+        loginPage.clickToOKButton();
+    }
+
+
     // ------------Home Screen----------------------- //
 
     @Given("I want to get info menu service")
@@ -222,6 +229,11 @@ public class Stepdefs {
     @Given("I want to edit info account with data")
     public void isInputInfoAcount(List<String> table) {
         homePage.isInputInfoAcount(table);
+    }
+
+    @Given( "I want to get current location customer" )
+    public void isCurentLocation(){
+        homePage.isCurentLocation();
     }
     // ------------Commons----------------------- //
 
